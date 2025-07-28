@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}ART – Gadał dziad do obrazu...{% endblock %}
+
+{% block content %}
+<h1>🖼️</h1>
+<h1>Dokończ sentencję:</h1>
+<h1>„Gadał dziad do obrazu</h1>
+<h1>a obraz był wygenerowany przez AI”</h1>
+
+{% if 'user' in session %}
+    <form method="POST" style="margin-top: 20px;">
+        <textarea name="fragment"
+                  maxlength="120"
+                  required
+                  placeholder="..."></textarea><br>
+        <button type="submit">💡 Dodaj swoją propozycję</button>
+    </form>
+{% else %}
+    <p><a href="{{ url_for('login') }}">Zaloguj się</a>, aby dodać propozycję.</p>
+{% endif %}
+
+<hr>
+
+<h2>🗳️ Propozycje społeczności:</h2>
+
+{% if proposals %}
+    {% for user, text, created in proposals %}
+        <div class="proposal">
+            <span class="user">{{ user }}</span>
+            <span class="date">{{ created[:10] }}</span>
+            <p>{{ text }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Brak propozycji.</p>
+{% endif %}
+
+<style>
+    textarea {
+        width: 100%;
+        height: 80px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-family: inherit;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #00796B;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #005f53;
+    }
+
+    .proposal {
+        background: #fff;
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .user {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .date {
+        font-size: 0.85em;
+        color: gray;
+        float: right;
+    }
+</style>
+{% endblock %}

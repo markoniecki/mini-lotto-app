@@ -1,0 +1,59 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mini Lotto{% endblock %}</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; }
+        nav {
+            background-color: #00796B;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{{ url_for('index') }}">Strona główna</a>
+    <a href="{{ url_for('mapa') }}">Mapa</a>
+    <a href="{{ url_for('wykres') }}">Wykres</a>
+    <a href="{{ url_for('art') }}">Art</a>
+    <a href="{{ url_for('forum') }}">Forum</a>
+    {% if 'user' in session %}
+        <span style="color: white;">Witaj, {{ session['user'] }}</span>
+        <a href="{{ url_for('logout') }}">Wyloguj</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Zaloguj</a>
+        <a href="{{ url_for('register') }}">Rejestracja</a>
+    {% endif %}
+</nav>
+
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color: red;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

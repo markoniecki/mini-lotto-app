@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wykres trendu</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #00796B;
+            padding: 15px 30px;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 900px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #00796B;
+            text-decoration: none;
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Strona główna</a></li>
+            <li><a href="{{ url_for('mapa') }}">Mapa</a></li>
+            <li><a href="{{ url_for('wykres') }}">Wykres</a></li>
+            <li><a href="{{ url_for('art') }}">Art</a></li>
+            <li><a href="{{ url_for('forum') }}">Forum</a></li>
+            {% if session.get('user') %}
+                <li><a href="{{ url_for('logout') }}">Wyloguj ({{ session['user'] }})</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Zaloguj</a></li>
+                <li><a href="{{ url_for('register') }}">Zarejestruj</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<div class="chart-container">
+    <h2>📈 Wykres trendu losowań Mini Lotto</h2>
+    <img src="{{ url_for('static', filename='chart_data/wykres.png') }}" alt="Wykres trendu">
+</div>
+
+<a class="back-link" href="{{ url_for('index') }}">← Powrót</a>
+
+</body>
+</html>

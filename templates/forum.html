@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %}
+<h2>💬 Forum dyskusyjne</h2>
+
+{% if 'user' in session %}
+<form method="POST">
+    <input type="text" name="title" placeholder="Tytuł posta" required>
+    <textarea name="content" placeholder="Treść posta..." rows="5" required></textarea>
+    <button type="submit">Dodaj post</button>
+</form>
+{% else %}
+    <p><a href="{{ url_for('login') }}">Zaloguj się</a>, aby dodać post.</p>
+{% endif %}
+
+<hr>
+
+{% if posts %}
+    {% for user, title, content, created in posts %}
+        <div class="post">
+            <strong>{{ title }}</strong>
+            <p>{{ content }}</p>
+            <div class="meta">Dodane przez {{ user }} | {{ created[:10] }}</div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Brak postów na forum.</p>
+{% endif %}
+
+<style>
+    form {
+        margin-top: 20px;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: inherit;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #3949AB;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #2c387e;
+    }
+
+    .post {
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-left: 5px solid #3949AB;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .meta {
+        font-size: 0.9em;
+        color: gray;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

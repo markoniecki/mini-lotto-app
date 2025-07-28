@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+instance/
+.env
+*.sqlite
+*.db
+.vscode/
+.idea/
+venv/
+static/chart_data/*.png

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Strona główna{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h2>🎯 Witaj w aplikacji Mini Lotto!</h2>
+    <p>Odkrywaj statystyki losowań, analizuj trendy, twórz sztukę z AI i dyskutuj na forum.</p>
+</div>
+
+<div class="cards">
+    <a class="card" href="{{ url_for('mapa') }}">
+        <h3>📊 Mapa losowań</h3>
+        <p>Przegląd ostatnich 50 losowań Mini Lotto w formie mapy liczb.</p>
+    </a>
+    <a class="card" href="{{ url_for('wykres') }}">
+        <h3>📈 Trendy</h3>
+        <p>Zobacz jak zmieniają się liczby na przestrzeni czasu.</p>
+    </a>
+    <a class="card" href="{{ url_for('art') }}">
+        <h3>🎨 Art</h3>
+        <p>Twórz poezję wspólnie z AI. Dokończ wiersz i inspiruj innych!</p>
+    </a>
+    <a class="card" href="{{ url_for('forum') }}">
+        <h3>💬 Forum</h3>
+        <p>Dołącz do społeczności Mini Lotto i podziel się swoimi przemyśleniami.</p>
+    </a>
+</div>
+
+<style>
+    .hero {
+        text-align: center;
+        margin: 40px auto;
+        max-width: 600px;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .card {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
