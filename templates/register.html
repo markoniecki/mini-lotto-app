@@ -1,69 +1,30 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Rejestracja</title>
-    <style>
-        body {
-            font-family: Arial;
-            padding: 20px;
-            background: #f9f9f9;
-        }
+{% extends "base.html" %}
 
-        form {
-            max-width: 300px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #ccc;
-        }
+{% block title %}Rejestracja{% endblock %}
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+{% block content %}
+<div class="container" style="max-width: 500px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 25px;">Rejestracja</h2>
 
-        button {
-            padding: 10px;
-            margin-top: 15px;
-            width: 100%;
-            background: teal;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.95em;
-        }
+    <form method="post">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div style="color: red; text-align: center; margin-bottom: 10px;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
 
-        a {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: gray;
-            font-size: 0.9em;
-            text-decoration: none;
-        }
+        <input type="text" name="username" placeholder="Nazwa użytkownika" required style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 6px;">
+        <input type="password" name="password" placeholder="Hasło" required style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 6px;">
 
-        h2 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+        <button type="submit" style="width: 100%; padding: 12px; margin-top: 20px; background: #00796B; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
+            Zarejestruj
+        </button>
 
-<h2>Zarejestruj się</h2>
-
-<form method="post">
-    <input type="text" name="username" placeholder="Nazwa użytkownika" maxlength="20" required>
-    <input type="password" name="password" placeholder="Hasło" maxlength="20" required>
-    <button type="submit">Zarejestruj</button>
-    <a href="{{ url_for('login') }}">Masz konto? Zaloguj się</a>
-</form>
-
-</body>
-</html>
+        <a href="{{ url_for('login') }}" style="display: block; margin-top: 12px; text-align: center; color: #00796B;">Masz już konto? Zaloguj się</a>
+    </form>
+</div>
+{% endblock %}

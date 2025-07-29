@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
-from utils import mapa_plot, wykres_plot, db
-from dotenv import load_dotenv
 import os
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from dotenv import load_dotenv
+from utils import mapa_plot, wykres_plot, db
 
 load_dotenv()
 
@@ -62,28 +62,28 @@ def forum():
     posts = db.get_all_forum_posts()
     return render_template('forum.html', posts=posts)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if db.create_user(username, password):
+            flash("Rejestracja zakończona sukcesem. Możesz się zalogować.")
+            return redirect(url_for('login'))
+        flash("Użytkownik już istnieje.")
+    return render_template('register.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = request.form['username']
-        pwd = request.form['password']
-        if db.validate_login(user, pwd):
-            session['user'] = user
+        username = request.form['username']
+        password = request.form['password']
+        if db.validate_login(username, password):
+            session['user'] = username
             flash("Zalogowano pomyślnie.")
             return redirect(url_for('art'))
         flash("Błąd logowania.")
     return render_template('login.html')
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        user = request.form['username']
-        pwd = request.form['password']
-        if db.create_user(user, pwd):
-            flash("Rejestracja udana. Możesz się zalogować.")
-            return redirect(url_for('login'))
-        flash("Użytkownik już istnieje.")
-    return render_template('register.html')
 
 @app.route('/logout')
 def logout():
@@ -93,4 +93,4 @@ def logout():
 
 if __name__ == '__main__':
     db.init_db()
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=5000)

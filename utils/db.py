@@ -8,7 +8,7 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
-    # Tabela użytkowników
+    # Tabela użytkowników (bez emaila i is_active)
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,6 +26,8 @@ def init_db():
             created TEXT NOT NULL
         )
     ''')
+
+    # Tabela postów forum
     c.execute('''
         CREATE TABLE IF NOT EXISTS forum_posts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,30 +40,7 @@ def init_db():
 
     conn.commit()
     conn.close()
-def add_forum_post(user, title, content):
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS forum_posts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user TEXT NOT NULL,
-            title TEXT NOT NULL,
-            content TEXT NOT NULL,
-            created TEXT NOT NULL
-        )
-    ''')
-    c.execute("INSERT INTO forum_posts (user, title, content, created) VALUES (?, ?, ?, ?)",
-              (user, title, content, datetime.now().isoformat()))
-    conn.commit()
-    conn.close()
 
-def get_all_posts():
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    c.execute("SELECT user, title, content, created FROM forum_posts ORDER BY created DESC")
-    results = c.fetchall()
-    conn.close()
-    return results
 def create_user(username, password):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -81,9 +60,7 @@ def validate_login(username, password):
     c.execute("SELECT password FROM users WHERE username = ?", (username,))
     row = c.fetchone()
     conn.close()
-    if row and check_password_hash(row[0], password):
-        return True
-    return False
+    return row and check_password_hash(row[0], password)
 
 def add_art_proposal(user, text):
     conn = sqlite3.connect(DB_PATH)
@@ -100,6 +77,15 @@ def get_all_proposals():
     results = c.fetchall()
     conn.close()
     return results
+
+def add_forum_post(user, title, content):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("INSERT INTO forum_posts (user, title, content, created) VALUES (?, ?, ?, ?)",
+              (user, title, content, datetime.now().isoformat()))
+    conn.commit()
+    conn.close()
+
 def get_all_forum_posts():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()

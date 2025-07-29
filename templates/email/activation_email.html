@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2 style="color: #00796B;">Mini Lotto – Potwierdź swój adres e-mail</h2>
+    <p>Dziękujemy za rejestrację w aplikacji Mini Lotto!</p>
+    <p>Aby aktywować swoje konto, kliknij w poniższy przycisk:</p>
+    <p style="text-align: center;">
+        <a href="{{ activation_link }}" style="background: #00796B; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            Aktywuj konto
+        </a>
+    </p>
+    <p>Jeśli nie rejestrowałeś się, zignoruj tę wiadomość.</p>
+{% endblock %}
