@@ -18,9 +18,18 @@ def mapa():
     return render_template('mapa.html')
 
 @app.route('/wykres')
-def wykres():
+def wykres_menu():
+    return render_template('wykres_menu.html')
+
+@app.route('/wykres/static')
+def wykres_static():
     wykres_plot.generate_trend_plot()
-    return render_template('wykres.html')
+    return render_template('wykres_static.html')
+
+@app.route('/wykres/dynamic')
+def wykres_dynamic():
+    script, div = wykres_plot.generate_trend_plot_bokeh()
+    return render_template('wykres_dynamic.html', script=script, div=div)
 
 @app.route('/art', methods=['GET', 'POST'])
 def art():

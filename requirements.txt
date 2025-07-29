@@ -1,8 +1,15 @@
-Flask==2.3.2
-pandas==2.0.3
-matplotlib==3.7.2
-seaborn==0.12.2
-bokeh==3.2.2
-Jinja2==3.1.2
-python-dotenv
-werkzeug
+# --- Główne pakiety aplikacji webowej ---
+Flask==2.3.2            # Framework webowy (główna baza aplikacji)
+Jinja2==3.1.2            # Silnik szablonów HTML (współpracuje z Flaskiem)
+werkzeug                # System routingu, sesji i bezpieczeństwa (część Flaska)
+python-dotenv           # Obsługa pliku .env (np. SECRET_KEY, dane logowania)
+
+# --- Analiza i wizualizacja danych ---
+pandas==2.0.3           # Operacje na danych liczbowych i tabelach (CSV, DataFrame)
+matplotlib==3.7.2       # Statyczne wykresy PNG (używany w wykres_static)
+seaborn==0.12.2         # Stylizowane wykresy (opcjonalnie)
+bokeh==3.2.2            # Dynamiczne, interaktywne wykresy HTML (wykres_dynamic)
+
+# --- Obsługa email i aktywacji kont ---
+Flask-Mail==0.9.1       # Wysyłanie e-maili z aplikacji Flask
+itsdangerous==2.1.2     # Tokeny zabezpieczające linki aktywacyjne / resetujące

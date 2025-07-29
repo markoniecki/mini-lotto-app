@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Wybierz typ wykresu{% endblock %}
+
+{% block content %}
+    <h2>Wybierz typ wykresu</h2>
+
+    <ul style="list-style: none; padding-left: 0;">
+        <li style="margin-bottom: 10px;">
+            <a href="{{ url_for('wykres_static') }}" style="text-decoration: none; font-size: 18px;">📊 Statyczny (matplotlib)</a>
+        </li>
+        <li>
+            <a href="{{ url_for('wykres_dynamic') }}" style="text-decoration: none; font-size: 18px;">⚡ Dynamiczny (Bokeh)</a>
+        </li>
+    </ul>
+{% endblock %}
